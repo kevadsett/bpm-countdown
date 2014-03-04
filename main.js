@@ -10,7 +10,7 @@ window.requestAnimFrame = (function(){
 
 var playing = false,
     beatsLeft = 1000,
-    bpm = 140,
+    bpm = $('.bpm-controls input').val(),
     now = 0,
     then = 0,
     delta = 0;
@@ -25,6 +25,14 @@ function onResetClicked(event) {
 function setBPM() {
     bpmValue = $('.bpm-controls input').val();
     if(bpm !== bpmValue) bpm = bpmValue;
+    var $loRecord = $('.bpm-record-low .record'),
+        $hiRecord = $('.bpm-record-high .record'),
+        records = {
+        lo: parseInt($loRecord.text()),
+        hi: parseInt($hiRecord.text())
+    };
+    if(bpm < records.lo) $loRecord.text(bpm);
+    if(bpm > records.hi) $hiRecord.text(bpm);
 }
 
 function resetPlayButton() {
@@ -42,19 +50,22 @@ function resetPlayButton() {
 
 function onPlayPauseClicked(event) {
     event.preventDefault();
+    togglePlay();
+}
+
+function togglePlay() {
     playing = !playing;
     resetPlayButton();
 }
 
 function onDeductClicked(event) {
     event.preventDefault();
-    beatsLeft -=  $('.incorrect-controls input').val();
+    beatsLeft -=  $(event.target).prev().val();
 }
 
 function update() {
     now = Date.now();
     delta = now - then;
-    setBPM();
     var beatsPerMs = (bpm / 60 / 1000);
     beatsPassed = beatsPerMs * delta;
     if(playing) {
@@ -70,6 +81,19 @@ function render() {
 $('.reset-button').on('click', onResetClicked);
 $('.playPause-button').on('click', onPlayPauseClicked);
 $('.incorrect-button').on('click', onDeductClicked);
+$('.passed-button').on('click', onDeductClicked);
+$('.clue-button').on('click', onDeductClicked);
+$(document).on('keydown', function(event) {
+    if(event.which === 32) {
+        togglePlay();
+    }
+});
+
+$('.bpm-controls input').on('keydown', function(event) {
+    if(event.which === 13) {
+        setBPM();
+    }
+});
 
 (function animloop(){
   requestAnimFrame(animloop);

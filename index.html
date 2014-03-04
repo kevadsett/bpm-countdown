@@ -15,7 +15,11 @@
                 </div>
                 <div class="bpm-controls">
                     <div class="control-label">Beats per minute:</div>
-                    <input type="number" placeholder="BPM" value="140">
+                    <input type="number" placeholder="BPM" value="80">
+                    <div class="bpm-records">
+                        <div class="bpm-record-low">Record low = <span class="record">80</span></div>
+                        <div class="bpm-record-high">Record high = <span class="record">80</span></div>
+                    </div>
                 </div>
             </div>
             <div class="beats-left">
@@ -23,9 +27,19 @@
             </div>
             <div class="bottom-controls">
                 <a href="#" class="playPause-button big-button button paused">Play</a>
-                <div class="incorrect-controls">
-                    <div class="control-label">Incorrect answer:</div>
-                    <input type="number" placeholder="Point deduction" value="25"><a href="#" class="incorrect-button button">Deduct points</a>
+                <div class="deduction-controls">
+                    <div class="deduction-control">
+                        <div class="control-label">Incorrect answer:</div>
+                        <input type="number" placeholder="Point deduction" value="25"><a href="#" class="incorrect-button button">Deduct incorrect points</a>
+                    </div>
+                    <div class="deduction-control">
+                        <div class="control-label">Passed answer:</div>
+                        <input type="number" placeholder="Point deduction" value="50"><a href="#" class="passed-button button">Deduct "passed question" points</a>
+                    </div>
+                    <div class="deduction-control">
+                        <div class="control-label">Clue answer:</div>
+                        <input type="number" placeholder="Point deduction" value="25"><a href="#" class="clue-button button">Deduct "clue" points</a>
+                    </div>
                 </div>
             </div>
         </div>

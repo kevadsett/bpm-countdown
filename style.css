@@ -38,7 +38,7 @@ a {
     position:relative;
 }
 
-.bpm-controls, .incorrect-controls {
+.bpm-controls, .deduction-controls {
     float:right;
     position: relative;
 }
@@ -76,5 +76,5 @@ a {
     color: #555;
 }
 
-.incorrect-controls {
+.deduction-controls {
     margin-top: 20px;}
