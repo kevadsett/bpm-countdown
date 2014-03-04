@@ -19,7 +19,6 @@ function onResetClicked(event) {
     event.preventDefault();
     playing = false;
     beatsLeft = $('.reset-controls input').val();
-    resetPlayButton();
 }
 
 function setBPM() {
@@ -35,18 +34,6 @@ function setBPM() {
     if(bpm > records.hi) $hiRecord.text(bpm);
 }
 
-function resetPlayButton() {
-    var $button = $('.playPause-button');
-    if(playing) {
-        $button.removeClass("paused");
-        $button.addClass("playing");
-        $button.text("Pause");
-    } else {
-        $button.removeClass("playing");
-        $button.addClass("paused");
-        $button.text("Play");
-    }
-}
 
 function onPlayPauseClicked(event) {
     event.preventDefault();
@@ -55,7 +42,6 @@ function onPlayPauseClicked(event) {
 
 function togglePlay() {
     playing = !playing;
-    resetPlayButton();
 }
 
 function onDeductClicked(event) {
@@ -69,13 +55,27 @@ function update() {
     var beatsPerMs = (bpm / 60 / 1000);
     beatsPassed = beatsPerMs * delta;
     if(playing) {
-        beatsLeft -= beatsPassed;
+        if(Math.round(beatsLeft) > 0 ) {
+            beatsLeft -= beatsPassed;
+        } else {
+            playing = false;
+        }
     }
     then = now;
 }
 
 function render() {
     $('.beats-left').text(Math.round(beatsLeft));
+    var $button = $('.playPause-button');
+    if(playing && !$button.hasClass('playing')) {
+        $button.removeClass("paused");
+        $button.addClass("playing");
+        $button.text("Pause");
+    } else if(!playing && !$button.hasClass('paused')) {
+        $button.removeClass("playing");
+        $button.addClass("paused");
+        $button.text("Play");
+    }
 }
 
 $('.reset-button').on('click', onResetClicked);
