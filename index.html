@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+    <head>
+        <title>BPM Countdown</title>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <div class="countdown-container clearfix">
+            <div class="top-controls clearfix">
+                <div class="reset-controls">
+                    <div class="control-label">Starting beats:</div>
+                    <input type="number" placeholder="Starting beats" value="1000"><a href="#" class="reset-button button">Reset</a>
+                </div>
+                <div class="bpm-controls">
+                    <div class="control-label">Beats per minute:</div>
+                    <input type="number" placeholder="BPM" value="140"><a href="#" class="bpm-button button">Set BPM</a>
+                </div>
+            </div>
+            <div class="beats-left">
+                1000
+            </div>
+            <div class="bottom-controls">
+                <a href="#" class="playPause-button big-button button paused">Play</a>
+                <div class="incorrect-controls">
+                    <div class="control-label">Incorrect answer:</div>
+                    <input type="number" placeholder="Point deduction" value="25"><a href="#" class="incorrect-button button">Deduct points</a>
+                </div>
+            </div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
