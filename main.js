@@ -9,7 +9,11 @@ window.requestAnimFrame = (function(){
 
 
 var playing = false,
-    beatsLeft = 1000;
+    beatsLeft = 1000,
+    bpm = 140,
+    now = 0,
+    then = 0,
+    delta = 0;
 
 function onResetClicked(event) {
     event.preventDefault();
@@ -18,9 +22,9 @@ function onResetClicked(event) {
     resetPlayButton();
 }
 
-function onSetBPMClicked(event) {
-    event.preventDefault();
-    console.log("Set BPM to " + $('.bpm-controls input').val());
+function setBPM() {
+    bpmValue = $('.bpm-controls input').val();
+    if(bpm !== bpmValue) bpm = bpmValue;
 }
 
 function resetPlayButton() {
@@ -44,21 +48,26 @@ function onPlayPauseClicked(event) {
 
 function onDeductClicked(event) {
     event.preventDefault();
-    console.log("Deduct " + $('.incorrect-controls input').val() + " points");
+    beatsLeft -=  $('.incorrect-controls input').val();
 }
 
 function update() {
+    now = Date.now();
+    delta = now - then;
+    setBPM();
+    var beatsPerMs = (bpm / 60 / 1000);
+    beatsPassed = beatsPerMs * delta;
     if(playing) {
-        beatsLeft--;
+        beatsLeft -= beatsPassed;
     }
+    then = now;
 }
 
 function render() {
-    $('.beats-left').text(beatsLeft);
+    $('.beats-left').text(Math.round(beatsLeft));
 }
 
 $('.reset-button').on('click', onResetClicked);
-$('.bpm-button').on('click', onSetBPMClicked);
 $('.playPause-button').on('click', onPlayPauseClicked);
 $('.incorrect-button').on('click', onDeductClicked);
 
